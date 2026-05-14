@@ -95,6 +95,13 @@
     margin-bottom: 24px;
     margin-left: -0.04em;
   }
+  @media (max-width: 920px) {
+    h1.headline {
+      max-width: 100%;
+      font-size: clamp(24px, 6.5vw, 40px);
+      white-space: nowrap;
+    }
+  }
   p.subhead {
     font-size: clamp(15px, 1.25vw, 17px);
     line-height: 1.5;
@@ -474,6 +481,13 @@
     margin-bottom: 18px;
     max-width: 18ch;
   }
+  @media (max-width: 920px) {
+    .slide h3.punch {
+      max-width: 100%;
+      font-size: clamp(13px, 3.5vw, 26px);
+      white-space: nowrap;
+    }
+  }
   .slide p.copy {
     font-size: clamp(15px, 1.15vw, 16.5px);
     line-height: 1.55;
@@ -507,8 +521,8 @@
   }
   .arr-btn:active { transform: translateY(-50%) scale(0.98); }
   .arr-btn svg { width: 20px; height: 20px; }
-  .arr-btn.prev { left: -22px; }
-  .arr-btn.next { right: -22px; }
+  .arr-btn.prev { left: -56px; }
+  .arr-btn.next { right: -56px; }
   @media (max-width: 920px) {
     .arr-btn { width: 42px; height: 42px; }
     .arr-btn.prev { left: 4px; }
@@ -520,10 +534,10 @@
     display: flex;
     justify-content: center;
     gap: 2px;
-    margin-top: 56px;
+    margin-bottom: 56px;
     max-width: 640px;
     margin-left: auto; margin-right: auto;
-    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
   }
   .tab-item {
     position: relative;
@@ -552,7 +566,7 @@
   .tab-item.active .tab-num { color: #6a6a6a; }
   .tab-progress {
     position: absolute;
-    top: -1px; left: 0; right: 0;
+    bottom: -1px; left: 0; right: 0;
     height: 2px;
     background: transparent;
     overflow: hidden;
@@ -787,6 +801,14 @@
   .ask-ai .ask-btn {
     background: #1976d2; color: #fff; font-size: 7.5px; padding: 5px 9px; border-radius: 999px;
     display: inline-flex; align-items: center; gap: 5px;
+  }
+
+  @media (max-width: 760px) {
+    .loc-body { grid-template-columns: 1fr; }
+    .loc-map { min-height: 200px; aspect-ratio: auto; }
+    .dash { grid-template-columns: 1fr; }
+    .cf-grid { grid-template-columns: 1fr; }
+    .panels { grid-template-columns: 1fr; }
   }
 
   /* ===================== COMPARISON ===================== */
@@ -1380,6 +1402,21 @@
   <!-- ============ FEATURES CAROUSEL ============ -->
   <div class="wrap">
     <section class="features" id="features">
+      <div class="tabs-row" role="tablist">
+        <button class="tab-item active" data-target="0" role="tab">
+          Comps
+          <span class="tab-progress"></span>
+        </button>
+        <button class="tab-item" data-target="1" role="tab">
+          Cashflow
+          <span class="tab-progress"></span>
+        </button>
+        <button class="tab-item" data-target="2" role="tab">
+          Location
+          <span class="tab-progress"></span>
+        </button>
+      </div>
+
       <div class="carousel" id="featuresCarousel">
 
         <button class="arr-btn prev" aria-label="Previous">
@@ -1396,7 +1433,6 @@
         <!-- SLIDE 1 — COMPS -->
         <div class="slide active" data-slide="0">
           <div class="slide-text">
-            <h2>Comps</h2>
             <h3 class="punch">Skip the chase. Get defensible data in seconds.</h3>
             <p class="copy">Stop losing hours cross-referencing tabs and public records. GroundVision instantly aggregates every relevant sale, scores them against your subject property, and shows the math. You get a fully weighted, sourced comp set ready for committee&mdash;without the manual data entry.</p>
           </div>
@@ -1613,7 +1649,6 @@
         <!-- SLIDE 2 — CASHFLOW -->
         <div class="slide" data-slide="1">
           <div class="slide-text">
-            <h2>Cashflow</h2>
             <h3 class="punch">Bypass the Excel grind. Pro formas built instantly.</h3>
             <p class="copy">We pull market rents, vacancy rates, and OpEx from live local data to build your 5-year pro forma automatically. Every assumption comes with a citation, and downside stress tests are run before you even ask. Export the clean numbers straight to your model and start making decisions.</p>
           </div>
@@ -1720,7 +1755,6 @@
         <!-- SLIDE 3 — LOCATION -->
         <div class="slide" data-slide="2">
           <div class="slide-text">
-            <h2>Location</h2>
             <h3 class="punch">Spot the deal-killers from day one.</h3>
             <p class="copy">Don't let hidden zoning laws or climate exposure kill a deal late in the process. We layer transit changes, population growth, and environmental risks onto an interactive map. See the blindspots instantly and price your risk accurately from day one, not day thirty.</p>
           </div>
@@ -1866,21 +1900,6 @@
 
       </div>
       <!-- /carousel -->
-
-      <div class="tabs-row" role="tablist">
-        <button class="tab-item active" data-target="0" role="tab">
-          <span class="tab-num">01</span>Comps
-          <span class="tab-progress"></span>
-        </button>
-        <button class="tab-item" data-target="1" role="tab">
-          <span class="tab-num">02</span>Cashflow
-          <span class="tab-progress"></span>
-        </button>
-        <button class="tab-item" data-target="2" role="tab">
-          <span class="tab-num">03</span>Location
-          <span class="tab-progress"></span>
-        </button>
-      </div>
 
     </section>
   </div>
@@ -2167,8 +2186,7 @@
         <nav class="footer-links" aria-label="Footer">
           <a href="#features">Features</a>
           <a href="#comparison">Comparison</a>
-          <a href="/terms">Terms &amp; Conditions</a>
-          <a href="mailto:hello@groundvision.ai">Contact</a>
+          <a href="mailto:abraham@groundvision.ai">Contact</a>
         </nav>
       </div>
 
