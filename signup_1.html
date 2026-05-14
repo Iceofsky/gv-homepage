@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Run your first deal &mdash; GroundVision</title>
+<meta name="description" content="Create your GroundVision account and run your first deal. Free, no credit card.">
+<meta name="robots" content="noindex">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230a0a0a'/%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.6'%3E%3Ccircle cx='12' cy='12' r='7'/%3E%3Cpath d='M5 12h14M12 5a11 11 0 0 1 0 14M12 5a11 11 0 0 0 0 14'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink: #0a0a0a; --line: #e8e8e8; }
+  html, body {
+    background: #fafaf8;
+    color: var(--ink);
+    font-family: 'Geist', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  body {
+    font-size: 16px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== Nav ===== */
+  .nav {
+    padding: 28px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  @media (max-width: 600px) { .nav { padding: 20px 22px; } }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 18px;
+    color: var(--ink); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .brand-mark {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--ink);
+    display: grid; place-items: center; color: #fff;
+  }
+  .brand-mark svg { width: 16px; height: 16px; }
+  .back-link {
+    font-size: 13.5px; color: #6b6b6b; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color 0.2s ease;
+  }
+  .back-link:hover { color: var(--ink); }
+  .back-link svg { width: 14px; height: 14px; }
+
+  /* ===== Main wrapper ===== */
+  main {
+    flex: 1;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 24px 22px 80px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    padding: 48px 44px 40px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 24px 48px -28px rgba(0,0,0,0.12);
+  }
+  @media (max-width: 600px) { .card { padding: 32px 22px 28px; border-radius: 18px; } }
+
+  h1 {
+    font-size: clamp(28px, 3.6vw, 36px);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(24px, 3vw, 30px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .sub {
+    font-size: 15px;
+    line-height: 1.55;
+    color: #5a5a5a;
+    margin-bottom: 30px;
+  }
+
+  /* ===== OAuth buttons ===== */
+  .oauth-stack {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 22px;
+  }
+  .oauth-btn {
+    background: #fff;
+    border: 1px solid #dfdcd2;
+    border-radius: 10px;
+    padding: 13px 18px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--ink);
+    font-family: inherit;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    width: 100%;
+    text-align: left;
+    letter-spacing: -0.003em;
+  }
+  .oauth-btn:hover {
+    border-color: #999;
+    background: #fafaf8;
+  }
+  .oauth-btn:active { transform: scale(0.99); }
+  .oauth-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .oauth-btn .logo {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    display: grid; place-items: center;
+  }
+  .oauth-btn .spinner {
+    display: none;
+    width: 14px; height: 14px;
+    border: 2px solid #ddd;
+    border-top-color: var(--ink);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-left: auto;
+  }
+  .oauth-btn.loading .spinner { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== Divider ===== */
+  .divider {
+    display: flex; align-items: center; gap: 14px;
+    margin: 4px 0 22px;
+    color: #aaa; font-size: 12px;
+    font-family: 'Geist Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: lowercase;
+  }
+  .divider::before, .divider::after {
+    content: ""; flex: 1; height: 1px; background: #ececec;
+  }
+
+  /* ===== Forms ===== */
+  form { display: flex; flex-direction: column; gap: 18px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label {
+    font-size: 12.5px; color: #333;
+    font-weight: 500; letter-spacing: -0.003em;
+  }
+  label .req { color: #c9504c; margin-left: 2px; }
+  input, select {
+    background: #fafaf8;
+    border: 1px solid #dfdcd2;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 15px; font-family: inherit;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    width: 100%;
+  }
+  input::placeholder { color: #b0aca0; }
+  input:focus, select:focus {
+    outline: none; border-color: var(--ink); background: #fff;
+    box-shadow: 0 0 0 3px rgba(10,10,10,0.06);
+  }
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  .primary-btn {
+    background: var(--ink); color: #fff;
+    border: none; border-radius: 999px;
+    padding: 14px 24px;
+    font-size: 15px; font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    letter-spacing: -0.005em;
+    width: 100%;
+  }
+  .primary-btn:hover { background: #222; transform: translateY(-1px); }
+  .primary-btn:active { transform: translateY(0); }
+  .primary-btn svg { width: 14px; height: 14px; }
+  .primary-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .terms-line {
+    font-size: 11.5px; color: #999;
+    margin-top: 22px;
+    line-height: 1.5;
+    letter-spacing: -0.003em;
+  }
+  .terms-line a { color: #666; border-bottom: 1px solid #ddd; padding-bottom: 1px; text-decoration: none; }
+  .terms-line a:hover { color: var(--ink); border-color: #999; }
+
+  /* ===== State management ===== */
+  .state { display: none; }
+  .state.visible { display: block; animation: fadeUp 0.35s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ===== Auth confirm chip (state 2) ===== */
+  .auth-confirm {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #f1f7e8;
+    border: 1px solid #d8e8c5;
+    color: #3a6b1f;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    margin-bottom: 18px;
+    letter-spacing: -0.003em;
+  }
+  .auth-confirm .check-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76,175,80,0.18);
+    flex-shrink: 0;
+  }
+  .auth-confirm strong { font-weight: 600; }
+
+  /* ===== Success state (state 3) ===== */
+  .success-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #3a6b1f;
+    background: #f1f7e8;
+    border: 1px solid #d8e8c5;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .success-tag .check-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76,175,80,0.18);
+  }
+  .state-success p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin-bottom: 14px;
+  }
+  .state-success p strong { color: var(--ink); font-weight: 600; }
+  .meta-row {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: #888;
+    letter-spacing: 0.02em;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .meta-row a {
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid #c8c8c8; padding-bottom: 1px;
+  }
+  .meta-row a:hover { border-color: var(--ink); }
+
+  /* ===== Footer ===== */
+  footer {
+    padding: 24px 40px 32px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.02em;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: #888; text-decoration: none; border-bottom: 1px solid transparent; }
+  footer a:hover { color: var(--ink); border-color: #888; }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+        </svg>
+      </span>
+      GroundVision
+    </a>
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Back to home
+    </a>
+  </nav>
+
+  <main>
+    <div class="card">
+
+      <!-- ===== STATE 1: AUTH ===== -->
+      <div class="state state-auth visible" id="stateAuth">
+        <h1>Run your first deal.</h1>
+        <p class="sub">Sign in to set up your account. Your first memo runs in 8 minutes &mdash; no credit card required.</p>
+
+        <div class="oauth-stack">
+          <button type="button" class="oauth-btn" data-provider="google">
+            <span class="logo">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+            </span>
+            Continue with Google
+            <span class="spinner"></span>
+          </button>
+
+          <button type="button" class="oauth-btn" data-provider="microsoft">
+            <span class="logo">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+                <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
+                <rect x="1" y="13" width="10" height="10" fill="#00A4EF"/>
+                <rect x="13" y="13" width="10" height="10" fill="#FFB900"/>
+              </svg>
+            </span>
+            Continue with Microsoft
+            <span class="spinner"></span>
+          </button>
+        </div>
+
+        <div class="divider"><span>or use email</span></div>
+
+        <form id="emailForm" novalidate>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="jane@firm.com">
+          </div>
+          <button type="submit" class="primary-btn">
+            Continue
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+
+        <p class="terms-line">By continuing, you agree to our <a href="/terms">Terms &amp; Conditions</a>.</p>
+      </div>
+
+      <!-- ===== STATE 2: CONTEXT ===== -->
+      <div class="state state-context" id="stateContext">
+        <div class="auth-confirm">
+          <span class="check-dot"></span>
+          Signed in as <strong id="emailEcho2">your.email@firm.com</strong>
+        </div>
+        <h2>One more thing.</h2>
+        <p class="sub">Quick details so we can set up your account right.</p>
+
+        <form id="contextForm" novalidate>
+          <div class="field">
+            <label for="company">Company<span class="req">*</span></label>
+            <input id="company" name="company" type="text" required autocomplete="organization" placeholder="Acme Real Estate">
+          </div>
+          <div class="field">
+            <label for="role">Your role<span class="req">*</span></label>
+            <select id="role" name="role" required>
+              <option value="" disabled selected>Choose one&hellip;</option>
+              <option value="acquisitions">Acquisitions</option>
+              <option value="broker">Broker / Agent</option>
+              <option value="asset-mgr">Asset Manager</option>
+              <option value="developer">Developer</option>
+              <option value="investor">Principal / Investor</option>
+              <option value="lender">Lender / Credit</option>
+              <option value="analyst">Analyst</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="primary-btn">
+            Finish setup
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <path d="M7 17L17 7M9 7h8v8"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- ===== STATE 3: SCARCITY REVEAL ===== -->
+      <div class="state state-success" id="stateSuccess">
+        <div class="success-tag">
+          <span class="check-dot"></span>
+          Signup complete
+        </div>
+        <h2>Thanks for signing up.</h2>
+        <p>Quick heads-up: we're currently <strong>oversubscribed and bringing capacity online as fast as we can.</strong> To keep memo quality high, every new account gets reviewed individually before activation.</p>
+        <p>You'll get an email at <strong id="emailEcho3">your inbox</strong> the moment your account is ready &mdash; usually within the next 7&ndash;14 days. We're moving as quickly as we can.</p>
+
+        <div class="meta-row">
+          <span>Activations: rolling, weekly</span>
+          <a href="index.html">&larr; Back to GroundVision</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div>&copy; 2026 GroundVision, Inc.</div>
+    <div><a href="/terms">Terms &amp; Conditions</a></div>
+  </footer>
+
+  <script>
+    (function() {
+      const stateAuth    = document.getElementById('stateAuth');
+      const stateContext = document.getElementById('stateContext');
+      const stateSuccess = document.getElementById('stateSuccess');
+      const emailEcho2   = document.getElementById('emailEcho2');
+      const emailEcho3   = document.getElementById('emailEcho3');
+
+      let collectedEmail = '';
+
+      function transitionTo(fromEl, toEl) {
+        fromEl.classList.remove('visible');
+        setTimeout(() => {
+          toEl.classList.add('visible');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 60);
+      }
+
+      // OAuth handlers (mocked — wire to real OAuth on integration)
+      document.querySelectorAll('.oauth-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const provider = btn.dataset.provider;
+          btn.classList.add('loading');
+          document.querySelectorAll('.oauth-btn').forEach(b => b.disabled = true);
+          // Simulate OAuth round-trip
+          setTimeout(() => {
+            // Mock email returned from OAuth provider
+            collectedEmail = provider === 'google' ? 'jane@acme.com' : 'jane@acme.onmicrosoft.com';
+            emailEcho2.textContent = collectedEmail;
+            emailEcho3.textContent = collectedEmail;
+            btn.classList.remove('loading');
+            document.querySelectorAll('.oauth-btn').forEach(b => b.disabled = false);
+            transitionTo(stateAuth, stateContext);
+          }, 900);
+        });
+      });
+
+      // Email form submission
+      const emailForm = document.getElementById('emailForm');
+      emailForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const emailInput = emailForm.elements['email'];
+        const val = emailInput.value.trim();
+        if (!val || !val.includes('@')) {
+          emailInput.style.borderColor = '#c9504c';
+          return;
+        }
+        emailInput.style.borderColor = '';
+        collectedEmail = val;
+        emailEcho2.textContent = collectedEmail;
+        emailEcho3.textContent = collectedEmail;
+        transitionTo(stateAuth, stateContext);
+      });
+
+      // Context form → success
+      const contextForm = document.getElementById('contextForm');
+      contextForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let valid = true;
+        ['company', 'role'].forEach(name => {
+          const el = contextForm.elements[name];
+          if (!el.value.trim()) {
+            el.style.borderColor = '#c9504c';
+            valid = false;
+          } else {
+            el.style.borderColor = '';
+          }
+        });
+        if (!valid) return;
+        transitionTo(stateContext, stateSuccess);
+        // NOTE: wire up real submission here — POST {email, company, role}
+      });
+    })();
+  </script>
+
+</body>
+</html>
