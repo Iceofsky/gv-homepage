@@ -9,14 +9,14 @@
 
 <!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="GroundVision — Do less. Close more.">
+<meta property="og:title" content="GroundVision — Your Deal Research Partner">
 <meta property="og:description" content="Your AI analyst pulls the comps, builds the cashflow, reads the location, and drafts the memo on any US property — so the only thing left to do is decide.">
 <meta property="og:url" content="https://groundvision.ai/">
 <meta property="og:image" content="https://groundvision.ai/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GroundVision — Do less. Close more.">
+<meta name="twitter:title" content="GroundVision — Your Deal Research Partner">
 <meta name="twitter:description" content="Your AI analyst pulls the comps, builds the cashflow, reads the location, and drafts the memo on any US property.">
 <meta name="twitter:image" content="https://groundvision.ai/og-image.png">
 
@@ -80,14 +80,20 @@
     padding-top: 70px;
     padding-bottom: 96px;
   }
-  @media (max-width: 920px) { .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 36px; padding-bottom: 56px; } }
+  @media (max-width: 920px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 36px; padding-bottom: 56px; }
+    .hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .cta-row { justify-content: center; }
+    .trial-microcopy { justify-content: center; }
+    p.subhead { margin-left: auto; margin-right: auto; }
+  }
 
   .eyebrow {
     font-size: 14px; font-weight: 700; letter-spacing: -0.01em;
     margin-bottom: 22px;
   }
   h1.headline {
-    font-size: clamp(40px, 6vw, 84px);
+    font-size: clamp(32px, 5vw, 76px);
     line-height: 1.02;
     letter-spacing: -0.045em;
     font-weight: 500;
@@ -98,7 +104,7 @@
   @media (max-width: 920px) {
     h1.headline {
       max-width: 100%;
-      font-size: clamp(24px, 6.5vw, 40px);
+      font-size: clamp(22px, 5.5vw, 36px);
       white-space: nowrap;
     }
   }
@@ -313,9 +319,11 @@
   }
   .manifesto {
     max-width: 940px;
+    margin: 0 auto;
+    text-align: center;
   }
   .manifesto-line {
-    font-size: clamp(34px, 5.6vw, 64px);
+    font-size: clamp(30px, 3.6vw, 46px);
     line-height: 1.04;
     letter-spacing: -0.035em;
     font-weight: 500;
@@ -474,7 +482,7 @@
 
   .slide h2 { font-size: 14px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.005em; }
   .slide h3.punch {
-    font-size: clamp(26px, 2.6vw, 34px);
+    font-size: clamp(30px, 3.6vw, 46px);
     line-height: 1.12;
     letter-spacing: -0.025em;
     font-weight: 500;
@@ -482,10 +490,10 @@
     max-width: 18ch;
   }
   @media (max-width: 920px) {
+    .slide-text { text-align: center; }
+    .slide p.copy { margin-left: auto; margin-right: auto; }
     .slide h3.punch {
       max-width: 100%;
-      font-size: clamp(13px, 3.5vw, 26px);
-      white-space: nowrap;
     }
   }
   .slide p.copy {
@@ -1006,11 +1014,15 @@
     align-items: center;
     overflow: hidden;
   }
-  @media (max-width: 920px) { .stats-card { grid-template-columns: 1fr; padding: 32px 28px; } }
+  @media (max-width: 920px) {
+    .stats-card { grid-template-columns: 1fr; padding: 32px 28px; }
+    .stats-top { text-align: center; }
+    .stats-thesis, .stats-proof { margin-left: auto; margin-right: auto; }
+  }
   .stats-left { display: flex; flex-direction: column; }
   .stats-top { max-width: 820px; margin-bottom: 44px; }
   .stats-thesis {
-    font-size: clamp(22px, 2vw, 30px);
+    font-size: clamp(30px, 3.6vw, 46px);
     line-height: 1.2;
     letter-spacing: -0.022em;
     font-weight: 500;
@@ -1321,11 +1333,10 @@
     <!-- ============ HERO ============ -->
     <section class="hero">
       <div class="hero-text">
-        <div class="eyebrow">The AI analyst for real estate</div>
-        <h1 class="headline">Do less. Close more.</h1>
-        <p class="subhead">Your AI analyst pulls the comps, builds the cashflow, reads the location, and drafts the memo on any US property &mdash; so the only thing left to do is decide.</p>
+        <h1 class="headline">Your Deal Research Partner</h1>
+        <p class="subhead">Pull the comps, build the cashflow, read the location, and draft the memo on any US property &mdash; so the only thing left to do is decide.</p>
         <div class="cta-row">
-          <a href="signup.html" class="btn-primary">
+          <a href="https://www.groundvision.ai/pro" class="btn-primary">
             Run your first deal
             <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
               <path d="M7 17L17 7M9 7h8v8"/>
@@ -2163,7 +2174,7 @@
         </div>
       </div>
 
-      <a href="signup.html" class="btn-primary">
+      <a href="https://www.groundvision.ai/pro" class="btn-primary">
         Run your first deal
         <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
           <path d="M7 17L17 7M9 7h8v8"/>
@@ -2192,7 +2203,7 @@
 
       <div class="footer-bottom">
         <div class="footer-copy">&copy; 2026 GroundVision, Inc. All rights reserved.</div>
-        <div class="footer-mono">Built for the way decisions get made.</div>
+        <div class="footer-mono">Your Deal Research Partner</div>
       </div>
     </div>
   </footer>
